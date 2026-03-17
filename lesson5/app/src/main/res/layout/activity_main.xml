@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- From -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Gửi thư"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:text="From"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/inputFrom"
+        android:hint="Nhập email người gửi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- To -->
+    <TextView
+        android:text="To"
+        android:layout_marginTop="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/inputTo"
+        android:hint="Nhập email người nhận"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Subject -->
+    <TextView
+        android:text="Subject"
+        android:layout_marginTop="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/inputSubject"
+        android:hint="Nhập tiêu đề"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Content -->
+    <TextView
+        android:text="Content"
+        android:layout_marginTop="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/inputContent"
+        android:hint="Nhập nội dung thư..."
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:minLines="5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Send Button -->
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Send" />
+
+</LinearLayout>

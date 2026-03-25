@@ -9,7 +9,9 @@ Each folder represents a different lesson or exercise completed during the cours
 The repository is organized by lessons:
 
 lesson4
+
 lesson5
+
 lesson6
 
 Each lesson folder may contain:

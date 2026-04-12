@@ -9,10 +9,6 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import android.util.Log
-import android.text.TextWatcher
-import android.text.Editable
-import com.bumptech.glide.Glide
 
 class AddNewActivity : AppCompatActivity() {
 
@@ -21,7 +17,7 @@ class AddNewActivity : AppCompatActivity() {
     private lateinit var edtPrice: EditText
     private lateinit var edtImage: EditText
     private lateinit var btnSubmit: Button
-    private lateinit var imgPreview: ImageView
+    private lateinit var btnBack: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,27 +27,12 @@ class AddNewActivity : AppCompatActivity() {
         edtDesc = findViewById(R.id.edtDesc)
         edtPrice = findViewById(R.id.edtPrice)
         edtImage = findViewById(R.id.edtImage)
-        imgPreview = findViewById(R.id.imgPreview)
         btnSubmit = findViewById(R.id.btnSubmit)
+        btnBack = findViewById(R.id.btnBack)
 
-        edtImage.addTextChangedListener(object : TextWatcher {
-
-            override fun afterTextChanged(s: Editable?) {
-                val url = s.toString().trim()
-
-                if (url.isNotEmpty() && url.startsWith("http")) {
-
-                    Glide.with(this@AddNewActivity)
-                        .load(url)
-                        .placeholder(android.R.drawable.ic_menu_gallery)
-                        .error(android.R.drawable.ic_delete)
-                        .into(imgPreview)
-                }
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
+        btnBack.setOnClickListener {
+            finish()
+        }
 
         btnSubmit.setOnClickListener {
             uploadProduct()
@@ -81,14 +62,8 @@ class AddNewActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    Log.e("AddNewActivity", "Lỗi kết nối: ${t.message}")
                     Toast.makeText(this@AddNewActivity, "Lỗi kết nối: ${t.message}", Toast.LENGTH_LONG).show()
                 }
             })
-    }
-
-    override fun finish() {
-        super.finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 }

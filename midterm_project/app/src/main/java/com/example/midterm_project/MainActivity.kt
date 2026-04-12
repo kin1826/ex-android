@@ -1,5 +1,6 @@
 package com.example.midterm_project.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -57,7 +58,10 @@ class MainActivity : AppCompatActivity() {
             },
             onDelete = { product ->
                 // Gọi hàm xóa
-                deleteProduct(product.id)
+                showDeleteDialog(this) {
+                    deleteProduct(product.id)
+                }
+
             },
             onClick = { product ->
                 // Mở màn hình Chi tiết
@@ -112,5 +116,24 @@ class MainActivity : AppCompatActivity() {
                 Log.e("DELETE", t.message ?: "Unknown error")
             }
         })
+    }
+
+    fun showDeleteDialog(
+        context: Context,
+        onConfirm: () -> Unit
+    ) {
+        val dialog = android.app.AlertDialog.Builder(context)
+            .setTitle("Xác nhận")
+            .setMessage("Bạn có chắc muốn xoá sản phẩm này không?")
+            .setPositiveButton("Xoá") { _, _ ->
+                onConfirm()
+            }
+            .setNegativeButton("Huỷ", null)
+            .create()
+
+        dialog.show()
+
+        dialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE)
+            .setTextColor(android.graphics.Color.RED)
     }
 }

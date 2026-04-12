@@ -14,6 +14,7 @@ import retrofit2.*
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var product: Product
+    private lateinit var btnBack: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,11 @@ class DetailActivity : AppCompatActivity() {
         val price = findViewById<TextView>(R.id.txtPrice)
         val btnEdit = findViewById<Button>(R.id.btnEdit)
         val btnDelete = findViewById<Button>(R.id.btnDelete)
+        btnBack = findViewById(R.id.btnBack)
+
+        btnBack.setOnClickListener {
+            finish()
+        }
 
         // hiển thị dữ liệu
         name.text = product.productName
@@ -82,10 +88,5 @@ class DetailActivity : AppCompatActivity() {
 
         dialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE)
             .setTextColor(android.graphics.Color.RED)
-    }
-
-    override fun finish() {
-        super.finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 }

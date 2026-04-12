@@ -33,15 +33,38 @@ class MainActivity : AppCompatActivity() {
         btnAdd = findViewById(R.id.btnAdd)
 
         // setup recycler
+//        adapter = ProductAdapter(
+//            list,
+//            onEdit = { product ->
+//                val intent = Intent(this, UpdateActivity::class.java)
+//                intent.putExtra("product", product)
+//                startActivity(intent)
+//            },
+//            onDelete = { product ->
+//                deleteProduct(product.id)
+//            }
+//        )
+
+        // SỬA LỖI TẠI ĐÂY: Truyền đầy đủ 4 tham số cho ProductAdapter
         adapter = ProductAdapter(
-            list,
+            list = list,
             onEdit = { product ->
+                // Mở màn hình Update
                 val intent = Intent(this, UpdateActivity::class.java)
                 intent.putExtra("product", product)
                 startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             },
             onDelete = { product ->
+                // Gọi hàm xóa
                 deleteProduct(product.id)
+            },
+            onClick = { product ->
+                // Mở màn hình Chi tiết
+                val intent = Intent(this, DetailActivity::class.java)
+                intent.putExtra("product", product)
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
         )
 
@@ -51,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         // button add
         btnAdd.setOnClickListener {
             startActivity(Intent(this, AddNewActivity::class.java))
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         // load data
@@ -59,33 +83,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // quay lại từ Add → reload list
         loadProducts()
     }
 
     private fun loadProducts() {
         ApiClient.api.getProducts().enqueue(object : Callback<List<Product>> {
-
-            override fun onResponse(
-                call: Call<List<Product>>,
-                response: Response<List<Product>>
-            ) {
+            override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
                 if (response.isSuccessful) {
-
                     list.clear()
-                    response.body()?.let {
-                        list.addAll(it)
-                    }
-
+                    response.body()?.let { list.addAll(it) }
                     adapter.notifyDataSetChanged()
-
-                    Log.d("API", "Load success")
-
-                } else {
-                    Log.e("API", "Response fail: ${response.code()}")
                 }
             }
-
             override fun onFailure(call: Call<List<Product>>, t: Throwable) {
                 Log.e("API_ERROR", "Error: ${t.message}")
             }
@@ -95,11 +104,12 @@ class MainActivity : AppCompatActivity() {
     private fun deleteProduct(id: Int) {
         ApiClient.api.deleteProduct(id).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                loadProducts()
+                if (response.isSuccessful) {
+                    loadProducts()
+                }
             }
-
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Log.e("DELETE", t.message!!)
+                Log.e("DELETE", t.message ?: "Unknown error")
             }
         })
     }

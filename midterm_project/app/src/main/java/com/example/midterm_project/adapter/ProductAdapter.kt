@@ -10,7 +10,8 @@ import com.example.midterm_project.model.Product
 class ProductAdapter(
     private val list: List<Product>,
     private val onEdit: (Product) -> Unit,
-    private val onDelete: (Product) -> Unit
+    private val onDelete: (Product) -> Unit,
+    private val onClick: (Product) -> Unit
 ) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
@@ -33,7 +34,7 @@ class ProductAdapter(
         val p = list[position]
 
         holder.name.text = p.productName
-        holder.price.text = p.price.toString() + " đ"
+        holder.price.text = formatPrice(p.price) + " đ"
 
         Glide.with(holder.itemView.context)
             .load(p.image)
@@ -60,5 +61,14 @@ class ProductAdapter(
 
             popup.show()
         }
+
+        holder.itemView.setOnClickListener {
+            onClick(p)
+        }
+    }
+
+    fun formatPrice(price: Int): String {
+        val formatter = java.text.NumberFormat.getInstance(java.util.Locale("vi", "VN"))
+        return formatter.format(price)
     }
 }

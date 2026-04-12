@@ -19,6 +19,7 @@
 
         <activity android:name=".activity.AddNewActivity"/>
         <activity android:name=".activity.UpdateActivity"/>
+        <activity android:name=".activity.DetailActivity"/>
 
         <activity
             android:name=".activity.MainActivity"

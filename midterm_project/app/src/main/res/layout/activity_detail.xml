@@ -7,6 +7,15 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@android:drawable/ic_menu_revert"
+        android:padding="8dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Back" />
+
+    <ImageView
         android:id="@+id/imgDetail"
         android:layout_width="200dp"
         android:layout_height="200dp"

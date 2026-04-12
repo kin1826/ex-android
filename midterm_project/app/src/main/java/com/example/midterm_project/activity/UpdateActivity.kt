@@ -22,6 +22,7 @@ class UpdateActivity : AppCompatActivity() {
 
         product = intent.getSerializableExtra("product") as Product
 
+        val btnBack = findViewById<ImageView>(R.id.btnBack)
         val edtName = findViewById<EditText>(R.id.edtName)
         val edtDesc = findViewById<EditText>(R.id.edtDesc)
         val edtPrice = findViewById<EditText>(R.id.edtPrice)
@@ -32,6 +33,10 @@ class UpdateActivity : AppCompatActivity() {
         edtDesc.setText(product.description)
         edtPrice.setText(product.price.toString())
         edtImage.setText(product.image)
+
+        btnBack.setOnClickListener {
+            finish()
+        }
 
         btnUpdate.setOnClickListener {
             updateProduct(
@@ -58,12 +63,15 @@ class UpdateActivity : AppCompatActivity() {
                     finish()
                 }
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {}
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Toast.makeText(this@UpdateActivity, "Lỗi cập nhật", Toast.LENGTH_SHORT).show()
+                }
             })
     }
 
     override fun finish() {
         super.finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        // Bạn có thể comment dòng dưới nếu không có file anim
+        // overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 }

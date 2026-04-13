@@ -33,20 +33,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         btnAdd = findViewById(R.id.btnAdd)
 
-        // setup recycler
-//        adapter = ProductAdapter(
-//            list,
-//            onEdit = { product ->
-//                val intent = Intent(this, UpdateActivity::class.java)
-//                intent.putExtra("product", product)
-//                startActivity(intent)
-//            },
-//            onDelete = { product ->
-//                deleteProduct(product.id)
-//            }
-//        )
-
-        // SỬA LỖI TẠI ĐÂY: Truyền đầy đủ 4 tham số cho ProductAdapter
         adapter = ProductAdapter(
             list = list,
             onEdit = { product ->
